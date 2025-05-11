@@ -107,14 +107,17 @@ function stopCamera() {
 // Function to send image to API
 async function sendImageToAPI(imageData) {
     try {
+        // Convert base64 to blob
+        const base64Response = await fetch(imageData);
+        const blob = await base64Response.blob();
+        
+        // Create FormData and append the file
+        const formData = new FormData();
+        formData.append('file', blob, 'image.png');
+
         const response = await fetch('https://phungz010.app.n8n.cloud/webhook-test/5c0ff0f6-779f-4108-a017-a357ac112a6a', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                image: imageData
-            })
+            body: formData
         });
 
         if (!response.ok) {
