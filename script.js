@@ -104,13 +104,43 @@ function stopCamera() {
     }
 }
 
+// Function to send image to API
+async function sendImageToAPI(imageData) {
+    try {
+        const response = await fetch('https://phungz010.app.n8n.cloud/webhook-test/5c0ff0f6-779f-4108-a017-a357ac112a6a', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                image: imageData
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const result = await response.json();
+        console.log('Image sent successfully:', result);
+        return result;
+    } catch (error) {
+        console.error('Error sending image:', error);
+        alert('Có lỗi xảy ra khi gửi ảnh. Vui lòng thử lại.');
+    }
+}
+
 // Function to capture image from camera
-function captureImage() {
+async function captureImage() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0);
-    preview.src = canvas.toDataURL('image/png');
+    const imageData = canvas.toDataURL('image/png');
+    preview.src = imageData;
     stopCamera();
+    
+    // Send image to API
+    await sendImageToAPI(imageData);
 }
 
 // Handle capture button click
@@ -125,13 +155,17 @@ captureButton.addEventListener('click', () => {
 });
 
 // Handle file input change
-imageInput.addEventListener('change', (e) => {
+imageInput.addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (file) {
         const reader = new FileReader();
-        reader.onload = (e) => {
-            preview.src = e.target.result;
+        reader.onload = async (e) => {
+            const imageData = e.target.result;
+            preview.src = imageData;
             previewContainer.style.display = 'block';
+            
+            // Send image to API
+            await sendImageToAPI(imageData);
         };
         reader.readAsDataURL(file);
     }
