@@ -142,4 +142,43 @@ captureButton.addEventListener('click', (e) => {
     if (e.shiftKey) {
         imageInput.click();
     }
+});
+
+// Slideshow functionality
+let slideIndex = 0;
+const slides = document.getElementsByClassName("slide");
+const dots = document.getElementsByClassName("dot");
+
+function showSlides() {
+    // Hide all slides
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+        dots[i].classList.remove("active-dot");
+    }
+    
+    // Move to next slide
+    slideIndex++;
+    if (slideIndex > slides.length) {
+        slideIndex = 1;
+    }
+    
+    // Show current slide and activate corresponding dot
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].classList.add("active-dot");
+    
+    // Change slide every 5 seconds
+    setTimeout(showSlides, 5000);
+}
+
+// Start slideshow when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    showSlides();
+    
+    // Add click event to dots
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].addEventListener('click', function() {
+            slideIndex = i;
+            showSlides();
+        });
+    }
 }); 
