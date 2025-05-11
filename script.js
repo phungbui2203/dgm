@@ -71,4 +71,75 @@ scrollToTopButton.addEventListener('click', () => {
         top: 0,
         behavior: 'smooth'
     });
+});
+
+// Face capture functionality
+const captureButton = document.getElementById('captureFace');
+const imageInput = document.getElementById('imageInput');
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const preview = document.getElementById('preview');
+const previewContainer = document.getElementById('preview-container');
+let stream = null;
+
+// Function to start camera
+async function startCamera() {
+    try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+        video.style.display = 'block';
+        previewContainer.style.display = 'block';
+    } catch (err) {
+        console.error('Error accessing camera:', err);
+        alert('Không thể truy cập camera. Vui lòng kiểm tra quyền truy cập camera của trình duyệt.');
+    }
+}
+
+// Function to stop camera
+function stopCamera() {
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        video.srcObject = null;
+        video.style.display = 'none';
+    }
+}
+
+// Function to capture image from camera
+function captureImage() {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    preview.src = canvas.toDataURL('image/png');
+    stopCamera();
+}
+
+// Handle capture button click
+captureButton.addEventListener('click', () => {
+    if (video.style.display === 'none') {
+        startCamera();
+        captureButton.textContent = 'Chụp ảnh';
+    } else {
+        captureImage();
+        captureButton.textContent = 'Chụp khuôn mặt';
+    }
+});
+
+// Handle file input change
+imageInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            preview.src = e.target.result;
+            previewContainer.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Add click event to open file dialog when clicking the button
+captureButton.addEventListener('click', (e) => {
+    if (e.shiftKey) {
+        imageInput.click();
+    }
 }); 

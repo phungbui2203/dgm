@@ -37,7 +37,15 @@
             <div class="hero-text">
                 <h1>Welcome to Our Product</h1>
                 <p>Discover the amazing features that will transform your experience.</p>
-                <button class="cta-button">Sign Up Now</button>
+                <div class="face-capture-container">
+                    <button class="cta-button" id="captureFace">Chụp khuôn mặt</button>
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                    <div id="preview-container" style="display: none;">
+                        <video id="video" autoplay style="display: none;"></video>
+                        <canvas id="canvas" style="display: none;"></canvas>
+                        <img id="preview" style="max-width: 300px; margin-top: 10px;">
+                    </div>
+                </div>
             </div>
             <div class="hero-image">
                 <img src="product-hero.png" alt="Product Image">
