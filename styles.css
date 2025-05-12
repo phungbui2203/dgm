@@ -348,31 +348,90 @@ body {
 
 /* Responsive design */
 @media (max-width: 768px) {
-    .hero-content {
-        flex-direction: column;
-        text-align: center;
+    .header {
+        padding: 0.5rem 2%;
+    }
+
+    .logo img {
+        height: 60px;
     }
 
     .nav ul {
-        gap: 1rem;
+        gap: 0.8rem;
+    }
+
+    .nav a {
+        font-size: 0.9rem;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
     }
 
     .hero-text h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .reviews-container {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
     }
 }
 
 @media (max-width: 480px) {
     .header {
-        padding: 1rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .logo img {
+        height: 50px;
     }
 
     .nav ul {
         gap: 0.5rem;
     }
 
+    .nav a {
+        font-size: 0.8rem;
+    }
+
     .hero-text h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+    }
+
+    .cta-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+    }
+
+    .feature-card img {
+        height: 200px;
+    }
+
+    .review-card {
+        padding: 1.5rem;
     }
 }
 

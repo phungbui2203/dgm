@@ -305,6 +305,10 @@ async function captureImage() {
     
     // Send image to API
     await sendImageToAPI(imageData);
+    
+    // Hide preview after sending
+    previewContainer.style.display = 'none';
+    preview.src = '';
 }
 
 // Handle capture button click
@@ -330,6 +334,10 @@ imageInput.addEventListener('change', async (e) => {
             
             // Send image to API
             await sendImageToAPI(imageData);
+            
+            // Hide preview after sending
+            previewContainer.style.display = 'none';
+            preview.src = '';
         };
         reader.readAsDataURL(file);
     }
