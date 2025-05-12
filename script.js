@@ -107,15 +107,20 @@ function stopCamera() {
 // Function to send image to API
 async function sendImageToAPI(imageData) {
     try {
+        // Show email input modal
+        const email = await showEmailModal();
+        if (!email) return; // User cancelled
+
         // Convert base64 to blob
         const base64Response = await fetch(imageData);
         const blob = await base64Response.blob();
         
-        // Create FormData and append the file
+        // Create FormData and append the file and email
         const formData = new FormData();
         formData.append('file', blob, 'image.png');
+        formData.append('email', email);
 
-        const response = await fetch('https://phungz010.app.n8n.cloud/webhook/5c0ff0f6-779f-4108-a017-a357ac112a6a', {
+        const response = await fetch('https://phungz010.app.n8n.cloud/webhook-test/5c0ff0f6-779f-4108-a017-a357ac112a6a', {
             method: 'POST',
             body: formData
         });
@@ -126,11 +131,167 @@ async function sendImageToAPI(imageData) {
 
         const result = await response.json();
         console.log('Image sent successfully:', result);
+        showSuccessMessage();
         return result;
     } catch (error) {
         console.error('Error sending image:', error);
         alert('Có lỗi xảy ra khi gửi ảnh. Vui lòng thử lại.');
     }
+}
+
+// Function to show email input modal
+function showEmailModal() {
+    return new Promise((resolve) => {
+        // Create modal elements
+        const modal = document.createElement('div');
+        modal.className = 'email-modal';
+        modal.innerHTML = `
+            <div class="email-modal-content">
+                <h3>Nhập email để nhận kết quả phân tích</h3>
+                <input type="email" id="emailInput" placeholder="Nhập địa chỉ email của bạn" required>
+                <div class="email-modal-buttons">
+                    <button id="submitEmail">Gửi</button>
+                    <button id="cancelEmail">Hủy</button>
+                </div>
+            </div>
+        `;
+
+        // Add modal styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .email-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+            .email-modal-content {
+                background-color: white;
+                padding: 20px;
+                border-radius: 8px;
+                width: 90%;
+                max-width: 400px;
+            }
+            .email-modal-content h3 {
+                margin-top: 0;
+                color: #333;
+            }
+            .email-modal-content input {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            .email-modal-buttons {
+                display: flex;
+                justify-content: flex-end;
+                gap: 10px;
+                margin-top: 15px;
+            }
+            .email-modal-buttons button {
+                padding: 8px 16px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .email-modal-buttons button:first-child {
+                background-color: #FF69B4;
+                color: white;
+            }
+            .email-modal-buttons button:last-child {
+                background-color: #f0f0f0;
+                color: #333;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add modal to body
+        document.body.appendChild(modal);
+
+        // Get elements
+        const emailInput = modal.querySelector('#emailInput');
+        const submitButton = modal.querySelector('#submitEmail');
+        const cancelButton = modal.querySelector('#cancelEmail');
+
+        // Focus on email input
+        emailInput.focus();
+
+        // Handle submit
+        submitButton.addEventListener('click', () => {
+            const email = emailInput.value.trim();
+            if (email && isValidEmail(email)) {
+                document.body.removeChild(modal);
+                resolve(email);
+            } else {
+                alert('Vui lòng nhập địa chỉ email hợp lệ');
+            }
+        });
+
+        // Handle cancel
+        cancelButton.addEventListener('click', () => {
+            document.body.removeChild(modal);
+            resolve(null);
+        });
+
+        // Handle enter key
+        emailInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                submitButton.click();
+            }
+        });
+    });
+}
+
+// Function to validate email
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// Function to show success message
+function showSuccessMessage() {
+    const message = document.createElement('div');
+    message.className = 'success-message';
+    message.textContent = 'Gửi ảnh thành công! Kết quả phân tích sẽ được gửi đến email của bạn.';
+    
+    // Add styles
+    const style = document.createElement('style');
+    style.textContent = `
+        .success-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    document.body.appendChild(message);
+    
+    // Remove message after 5 seconds
+    setTimeout(() => {
+        message.style.animation = 'slideOut 0.5s ease-out';
+        setTimeout(() => {
+            document.body.removeChild(message);
+        }, 500);
+    }, 5000);
 }
 
 // Function to capture image from camera
