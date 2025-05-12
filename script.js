@@ -120,7 +120,7 @@ async function sendImageToAPI(imageData) {
         formData.append('file', blob, 'image.png');
         formData.append('email', email);
 
-        const response = await fetch('https://phungz010.app.n8n.cloud/webhook-test/5c0ff0f6-779f-4108-a017-a357ac112a6a', {
+        const response = await fetch('https://phungz010.app.n8n.cloud/webhook/5c0ff0f6-779f-4108-a017-a357ac112a6a', {
             method: 'POST',
             body: formData
         });
