@@ -85,10 +85,17 @@ let stream = null;
 // Function to start camera
 async function startCamera() {
     try {
-        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        stream = await navigator.mediaDevices.getUserMedia({ 
+            video: { 
+                facingMode: 'user',
+                width: { ideal: 1280 },
+                height: { ideal: 720 }
+            } 
+        });
         video.srcObject = stream;
         video.style.display = 'block';
         previewContainer.style.display = 'block';
+        captureButton.textContent = 'Chụp ảnh';
     } catch (err) {
         console.error('Error accessing camera:', err);
         alert('Không thể truy cập camera. Vui lòng kiểm tra quyền truy cập camera của trình duyệt.');
@@ -315,7 +322,6 @@ async function captureImage() {
 captureButton.addEventListener('click', () => {
     if (video.style.display === 'none') {
         startCamera();
-        captureButton.textContent = 'Chụp ảnh';
     } else {
         captureImage();
         captureButton.textContent = 'Chụp khuôn mặt';
