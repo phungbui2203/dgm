@@ -42,7 +42,7 @@
                     <button class="cta-button" id="captureFace">Chụp khuôn mặt</button>
                     <input type="file" id="imageInput" accept="image/*" style="display: none;">
                     <div id="preview-container" style="display: none;">
-                        <video id="video" autoplay style="display: none;"></video>
+                        <video id="video" autoplay playsinline style="display: none; width: 100%; max-width: 300px; border-radius: 8px;"></video>
                         <canvas id="canvas" style="display: none;"></canvas>
                         <img id="preview" style="max-width: 300px; margin-top: 10px;">
                     </div>
