@@ -556,6 +556,33 @@ body {
     font-weight: bold;
 }
 
+.product-specs {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--gradient-secondary);
+    border-radius: 10px;
+}
+
+.product-specs h4 {
+    color: #4a2c82;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.product-specs ul {
+    margin-bottom: 0;
+}
+
+.product-specs ul li {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.product-specs ul li:before {
+    content: "•";
+    color: var(--primary);
+}
+
 .product-button {
     padding: 1rem 2rem;
     font-size: 1.1rem;
