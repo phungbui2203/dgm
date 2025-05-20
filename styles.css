@@ -37,6 +37,11 @@ body {
 
 .logo img {
     height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .nav ul {
