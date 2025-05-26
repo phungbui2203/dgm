@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - GlowTech</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .blog-header {
+            background: var(--gradient-primary);
+            padding: 8rem 5% 4rem;
+            text-align: center;
+            color: white;
+        }
+
+        .blog-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 5%;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(160, 130, 204, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.5rem;
+            color: #4a2c82;
+            margin-bottom: 1rem;
+        }
+
+        .blog-excerpt {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .read-more:hover {
+            color: #4a2c82;
+        }
+
+        @media (max-width: 768px) {
+            .blog-header {
+                padding: 6rem 5% 3rem;
+            }
+
+            .blog-header h1 {
+                font-size: 2rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="Company Logo">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html#home">Giới thiệu</a></li>
+                <li><a href="index.html#products">Sản Phẩm</a></li>
+                <li><a href="index.html#about">Tính Năng</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="index.html#contact">Liên Hệ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Blog Header -->
+    <section class="blog-header">
+        <h1>Blog GlowTech</h1>
+        <p>Khám phá những bài viết mới nhất về làm đẹp, chăm sóc da và công nghệ thông minh</p>
+    </section>
+
+    <!-- Blog Container -->
+    <div class="blog-container">
+        <!-- Blog Grid -->
+        <div class="blog-grid">
+            <!-- Blog Post 1 -->
+            <article class="blog-card">
+                <img src="blog1.png" alt="Blog 1" class="blog-image">
+                <div class="blog-content">
+                    <h3>Xu Hướng Làm Đẹp Thông Minh Năm 2025</h3>
+                    <p>Khám phá những xu hướng làm đẹp thông minh mới nhất trong năm 2025, từ công nghệ AI đến các thiết bị thông minh.</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 15/05/2025</span>
+                        <span><i class="far fa-clock"></i> 5 phút đọc</span>
+                    </div>
+                    <a href="blog-detail.html" class="read-more">Đọc thêm</a>
+                </div>
+            </article>
+
+            <!-- Blog Post 2 -->
+            <article class="blog-card">
+                <img src="blog2.png" alt="Blog Post 2" class="blog-image">
+                <div class="blog-content">
+                    <h3>Công Nghệ Gương Thông Minh Mới: Phân Tích Da 3D</h3>
+                    <p>Giới thiệu công nghệ phân tích da 3D mới nhất trên gương thông minh, giúp phát hiện và theo dõi các vấn đề về da chính xác hơn.</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 10/05/2025</span>
+                        <span><i class="far fa-clock"></i> 6 phút đọc</span>
+                    </div>
+                    <a href="blog-detail-2.html" class="read-more">Đọc thêm</a>
+                </div>
+            </article>
+
+            <!-- Blog Post 3 -->
+            <article class="blog-card">
+                <img src="blog3.png" alt="Blog Post 3" class="blog-image">
+                <div class="blog-content">
+                    <h3>Làm Đẹp Bền Vững: Xu Hướng Mới Năm 2025</h3>
+                    <p>Tìm hiểu về xu hướng làm đẹp bền vững và cách gương thông minh đang góp phần vào việc bảo vệ môi trường.</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 05/05/2025</span>
+                        <span><i class="far fa-clock"></i> 7 phút đọc</span>
+                    </div>
+                    <a href="blog-detail-3.html" class="read-more">Đọc thêm</a>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@company.com</p>
+                <p>Phone: (123) 456-7890</p>
+                <p>Address: 123 Street Name, City, Country</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/glowtech.co.ltd" target="_blank"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Your Company. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button id="scrollToTop" class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html> 
