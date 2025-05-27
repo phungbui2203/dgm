@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
+    <title>Sản Phẩm - Landing Page</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -31,57 +31,21 @@
         </div>
         <nav class="nav">
             <ul>
-                <li><a href="products.html">Sản Phẩm</a></li>
-                <li><a href="#about">Tính Năng</a></li>
+                <li><a href="products.html" class="active">Sản Phẩm</a></li>
+                <li><a href="index.html#about">Tính Năng</a></li>
                 <li><a href="blog.html">Blog</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>Khám Phá Vẻ Đẹp Của Bạn Với AI</h1>
-                <p>Hãy thử ngay công nghệ phân tích khuôn mặt thông minh để nhận tư vấn trang điểm và chăm sóc da cá nhân hóa!</p>
-                <div class="face-capture-container">
-                    <button class="cta-button" id="captureFace">Chụp khuôn mặt</button>
-                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
-                    <div id="preview-container" style="display: none;">
-                        <video id="video" autoplay playsinline style="display: none; width: 100%; max-width: 300px; border-radius: 8px;"></video>
-                        <canvas id="canvas" style="display: none;"></canvas>
-                        <img id="preview" style="max-width: 300px; margin-top: 10px;">
-                    </div>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="slideshow-container">
-                    <div class="slide fade">
-                        <img src="hero1.png" alt="AI Beauty Analysis 1">
-                    </div>
-                    <div class="slide fade">
-                        <img src="hero2.png" alt="AI Beauty Analysis 2">
-                    </div>
-                    <div class="slide fade">
-                        <img src="hero3.png" alt="AI Beauty Analysis 3">
-                    </div>
-                    <div class="slide fade">
-                        <img src="hero4.png" alt="AI Beauty Analysis 4">
-                    </div>
-                    <div class="slide-dots">
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Products Hero Section -->
+    <section class="products-hero">
+        <h1>Khám Phá Sản Phẩm Của Chúng Tôi</h1>
+        <p>Trải nghiệm công nghệ làm đẹp thông minh với các sản phẩm chất lượng cao</p>
     </section>
 
     <!-- Products Section -->
     <section class="products" id="products">
-        <h2>Sản Phẩm</h2>
         <div class="product-container">
             <div class="product-item">
                 <div class="product-image">
@@ -133,57 +97,6 @@
                     </div>
                     <a href="product-detail-premium.html" class="product-button">Tìm hiểu thêm</a>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="about">
-        <h2>Tính Năng Hiện Đại</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <img src="feature1.png" alt="Feature 1">
-                <h3>Lựa chọn lớp makeup</h3>
-                <p>Khám phá đa dạng các lớp trang điểm chuyên nghiệp, từ cơ bản đến nâng cao. Bạn có thể lựa chọn phong cách phù hợp với nhu cầu và sở thích của mình.</p>
-            </div>
-            <div class="feature-card">
-                <img src="feature2.png" alt="Feature 2">
-                <h3>Soi da</h3>
-                <p>Trải nghiệm công nghệ soi da hiện đại, giúp phân tích chính xác tình trạng da của bạn. Từ đó, chúng tôi sẽ tư vấn phương pháp chăm sóc và điều trị phù hợp nhất.</p>
-            </div>
-            <div class="feature-card">
-                <img src="feature3.png" alt="Feature 3">
-                <h3>Nhắc lịch trình</h3>
-                <p>Hệ thống nhắc lịch thông minh giúp bạn không bỏ lỡ bất kỳ buổi học nào. Nhận thông báo qua email hoặc tin nhắn trước mỗi buổi học, giúp việc sắp xếp thời gian trở nên dễ dàng hơn.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Reviews Section -->
-    <section class="reviews">
-        <h2>Đánh Giá</h2>
-        <div class="reviews-container">
-            <div class="review-card">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="review-text">"Gương thông minh này thật tuyệt vời! Nó giúp tôi trang điểm mỗi ngày một cách chuyên nghiệp hơn."</p>
-                <p class="reviewer">- Kim Ngân</p>
-            </div>
-            <div class="review-card">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="review-text">"Tôi rất hài lòng với chiếc gương này! Công nghệ soi da và phân tích khuôn mặt thật ấn tượng."</p>
-                <p class="reviewer">- Bích Phương</p>
             </div>
         </div>
     </section>
