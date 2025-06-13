@@ -269,6 +269,39 @@ body {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+.feature-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    margin-top: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.feature-link:hover {
+    color: #4a2c82;
+    text-decoration: underline;
+}
+
+.feature-link-wrapper {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.feature-link-wrapper:hover {
+    transform: scale(1.02);
+}
+
+.feature-link-wrapper:hover .feature-content {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+}
+
 /* Reviews section styles */
 .reviews {
     padding: 5rem 5%;
