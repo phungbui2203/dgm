@@ -189,6 +189,26 @@
         </div>
     </section>
 
+    <!-- n8n Chat Widget -->
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+        createChat({
+            webhookUrl: 'https://glowtech.app.n8n.cloud/webhook/c5f8dbdf-9456-4e40-9e0a-6ce8765b00f6/chat',
+            initialMessages: ['Chào mừng bạn đến với Glowtech, chúng tôi có thể giúp gì cho bạn?'],
+            i18n: {
+                en: {
+                    title: 'Xin chào! 👋',
+                    subtitle: "Hỗ trợ 24/7.",
+                    footer: '',
+                    getStarted: 'Bắt đầu',
+                    inputPlaceholder: 'Tôi muốn tìm hiểu gương Glowtech',
+                },
+            },
+        });
+    </script>
+
     <!-- Footer Section -->
     <footer class="footer" id="contact">
         <div class="footer-content">
@@ -240,5 +260,8 @@
     </script>
 
     <script src="script.js"></script>
+    
+    <!-- Load Sample Comments -->
+    <script src="add-sample-comments.js"></script>
 </body>
 </html> 
