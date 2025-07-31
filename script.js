@@ -114,18 +114,20 @@ function stopCamera() {
 // Function to send image to API
 async function sendImageToAPI(imageData) {
     try {
-        // Show email input modal
-        const email = await showEmailModal();
-        if (!email) return; // User cancelled
+        // Show user info input modal
+        const userInfo = await showUserInfoModal();
+        if (!userInfo) return; // User cancelled
 
         // Convert base64 to blob
         const base64Response = await fetch(imageData);
         const blob = await base64Response.blob();
         
-        // Create FormData and append the file and email
+        // Create FormData and append the file and user info
         const formData = new FormData();
         formData.append('file', blob, 'image.png');
-        formData.append('email', email);
+        formData.append('email', userInfo.email);
+        formData.append('name', userInfo.name);
+        formData.append('dateOfBirth', userInfo.dateOfBirth);
 
         const response = await fetch('https://glowtech.app.n8n.cloud/webhook/5c0ff0f6-779f-4108-a017-a357ac112a6a', {
             method: 'POST',
@@ -146,19 +148,22 @@ async function sendImageToAPI(imageData) {
     }
 }
 
-// Function to show email input modal
-function showEmailModal() {
+// Function to show user info input modal
+function showUserInfoModal() {
     return new Promise((resolve) => {
         // Create modal elements
         const modal = document.createElement('div');
-        modal.className = 'email-modal';
+        modal.className = 'user-info-modal';
         modal.innerHTML = `
-            <div class="email-modal-content">
-                <h3>Nhập email để nhận kết quả phân tích</h3>
+            <div class="user-info-modal-content">
+                <h3>Nhập thông tin để nhận kết quả phân tích</h3>
+                <input type="text" id="nameInput" placeholder="Nhập họ và tên của bạn" required>
+                <input type="date" id="dateOfBirthInput" required>
+                <label for="dateOfBirthInput" style="font-size: 12px; color: #666; margin-bottom: 10px;">Ngày sinh</label>
                 <input type="email" id="emailInput" placeholder="Nhập địa chỉ email của bạn" required>
-                <div class="email-modal-buttons">
-                    <button id="submitEmail">Gửi</button>
-                    <button id="cancelEmail">Hủy</button>
+                <div class="user-info-modal-buttons">
+                    <button id="submitUserInfo">Gửi</button>
+                    <button id="cancelUserInfo">Hủy</button>
                 </div>
             </div>
         `;
@@ -166,7 +171,7 @@ function showEmailModal() {
         // Add modal styles
         const style = document.createElement('style');
         style.textContent = `
-            .email-modal {
+            .user-info-modal {
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -178,44 +183,59 @@ function showEmailModal() {
                 align-items: center;
                 z-index: 1000;
             }
-            .email-modal-content {
+            .user-info-modal-content {
                 background-color: white;
-                padding: 20px;
+                padding: 25px;
                 border-radius: 8px;
                 width: 90%;
-                max-width: 400px;
+                max-width: 450px;
             }
-            .email-modal-content h3 {
+            .user-info-modal-content h3 {
                 margin-top: 0;
+                margin-bottom: 20px;
                 color: #333;
+                text-align: center;
             }
-            .email-modal-content input {
+            .user-info-modal-content input {
                 width: 100%;
-                padding: 10px;
-                margin: 10px 0;
+                padding: 12px;
+                margin: 8px 0;
                 border: 1px solid #ddd;
                 border-radius: 4px;
                 box-sizing: border-box;
+                font-size: 14px;
             }
-            .email-modal-buttons {
+            .user-info-modal-content label {
+                display: block;
+                margin-top: -5px;
+                margin-bottom: 8px;
+            }
+            .user-info-modal-buttons {
                 display: flex;
                 justify-content: flex-end;
                 gap: 10px;
-                margin-top: 15px;
+                margin-top: 20px;
             }
-            .email-modal-buttons button {
-                padding: 8px 16px;
+            .user-info-modal-buttons button {
+                padding: 10px 20px;
                 border: none;
                 border-radius: 4px;
                 cursor: pointer;
+                font-size: 14px;
             }
-            .email-modal-buttons button:first-child {
+            .user-info-modal-buttons button:first-child {
                 background-color: #FF69B4;
                 color: white;
             }
-            .email-modal-buttons button:last-child {
+            .user-info-modal-buttons button:first-child:hover {
+                background-color: #FF1493;
+            }
+            .user-info-modal-buttons button:last-child {
                 background-color: #f0f0f0;
                 color: #333;
+            }
+            .user-info-modal-buttons button:last-child:hover {
+                background-color: #e0e0e0;
             }
         `;
         document.head.appendChild(style);
@@ -224,22 +244,42 @@ function showEmailModal() {
         document.body.appendChild(modal);
 
         // Get elements
+        const nameInput = modal.querySelector('#nameInput');
+        const dateOfBirthInput = modal.querySelector('#dateOfBirthInput');
         const emailInput = modal.querySelector('#emailInput');
-        const submitButton = modal.querySelector('#submitEmail');
-        const cancelButton = modal.querySelector('#cancelEmail');
+        const submitButton = modal.querySelector('#submitUserInfo');
+        const cancelButton = modal.querySelector('#cancelUserInfo');
 
-        // Focus on email input
-        emailInput.focus();
+        // Focus on name input
+        nameInput.focus();
 
         // Handle submit
         submitButton.addEventListener('click', () => {
+            const name = nameInput.value.trim();
+            const dateOfBirth = dateOfBirthInput.value;
             const email = emailInput.value.trim();
-            if (email && isValidEmail(email)) {
-                document.body.removeChild(modal);
-                resolve(email);
-            } else {
-                alert('Vui lòng nhập địa chỉ email hợp lệ');
+            
+            if (!name) {
+                alert('Vui lòng nhập họ và tên');
+                return;
             }
+            
+            if (!dateOfBirth) {
+                alert('Vui lòng chọn ngày sinh');
+                return;
+            }
+            
+            if (!email || !isValidEmail(email)) {
+                alert('Vui lòng nhập địa chỉ email hợp lệ');
+                return;
+            }
+            
+            document.body.removeChild(modal);
+            resolve({
+                name: name,
+                dateOfBirth: dateOfBirth,
+                email: email
+            });
         });
 
         // Handle cancel
@@ -248,7 +288,7 @@ function showEmailModal() {
             resolve(null);
         });
 
-        // Handle enter key
+        // Handle enter key on last input
         emailInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 submitButton.click();
